@@ -1,134 +1,192 @@
 /* My CSS File for the Final Project*/
-
-
 .top-bar{
-/*Dark Bar Color and position*/
-    position: fixed;
-    left: 0%;
-    right: 0%;
-    height: 75px;
-
-    background: #343A40;
-    border-radius: 4px;
-}
-.top-bar-uncc{
-    /*Font color and Styling*/
-    position: fixed;
-    left: 0%;
-    right: 0%;
-    height: 75px;
-    color: rgb(255, 255, 255);
-    font-family: Iceberg;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 28px;
-    line-height: 34px;
-    padding-left: 20px;
-}
-
-
-
-.top-bar-buttons{
-    color: rgb(255, 255, 255);
-    font-family: 'IBM Plex Sans Condensed';
-    font-style: relative;
-    font-weight: 400;
-    font-size: 22px;
-    line-height: 16px;
-    text-decoration: none;
-
-    position: relative;
-    left: 250px;
-    padding-left: 20px;
-    top: 28px;
-    background: none;
-    border: none;
-}
-.top-bar-search{
-    box-sizing: border-box;
-    position: fixed;
-    font-family: 'IBM Plex Sans Condensed';
-    width: 269px;
-    right: 340px;
-    height: 40px;
-    top: 18px;
+        position: absolute;
+        left: 0%;
+        right: 0%;
+        height: 75px;
     
-    /* Default/White */
-    background: #FFFFFF;
-    /* Stroke/light */
+        background: #343A40;
+        border-radius: 4px;
+    }
+    .top-bar-uncc{
+        position: absolute;
+        left: 0%;
+        right: 0%;
+        height: 75px;
+        color: rgb(255, 255, 255);
+        font-family: Iceberg;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 34px;
+        padding-left: 20px;
+    }
     
-    border: 1px solid #DEE2E6;
-    border-radius: 1px;
-}
-.top-bar-search-submit{
-    box-sizing: border-box;
-    font-family: 'IBM Plex Sans Condensed';
-    position: fixed;
-    width: 80px;
-    height: 40px;
-    right:255px;
-    top: 18px;
     
-    border: 1px solid #73D05B;
-    color: #73D05B;
-    background-color: #343A40;
-    border-radius: 1px;
-}
+    
+    .top-bar-buttons{
+        color: rgb(255, 255, 255);
+        font-family: 'IBM Plex Sans Condensed';
+        font-style: relative;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 16px;
+        text-decoration: none;
+    
+        position: relative;
+        left: 250px;
+        padding-left: 20px;
+        top: 28px;
+        background: none;
+        border: none;
+    }
+    .top-bar-search{
+        box-sizing: border-box;
+        position: absolute;
+        font-family: 'IBM Plex Sans Condensed';
+        width: 269px;
+        right: 355px;
+        height: 40px;
+        top: 18px;
+    
+        /* Default/White /
+        background: #FFFFFF;
+        / Stroke/light */
+    
+        border: 1px solid #DEE2E6;
+        border-radius: 1px;
+    }
+    .top-bar-search-submit{
+        box-sizing: border-box;
+        font-family: 'IBM Plex Sans Condensed';
+        position: absolute;
+        width: 80px;
+        right:275px;
+        height: 40px;
+        top: 18px;
+    
+        border: 1px solid #73D05B;
+        color: #73D05B;
+        background-color: #343A40;
+        border-radius: 1px;
+    }
+    
+    .top-bar-links{
+        text-decoration: none;
+        color: white;
+    }
+    
+    .top-bar-create-account-button{
+        box-sizing: border-box;
+        font-family: 'IBM Plex Sans Condensed';
+        position: absolute;
+        width: 114px;
+        height: 40px;
+        right: 140px;
+        top: 18px;
+        font-size: 16px;
+        line-height: 18px;
+    
+        border: 1px solid #73D05B;
+        color: #73D05B;
+        background-color: #ffffff;
+        border-radius: 1px;
+    }
 
-.top-bar-links{
-    text-decoration: none;
-    color: white;
-}
-.top-bar-create-account-word{
-    text-decoration: none;
-    color: #73D05B;
-}
-
-.top-bar-create-account-button{
-    box-sizing: border-box;
-    font-family: 'IBM Plex Sans Condensed';
-    position: fixed;
-    width: 114px;
-    height: 40px;
-    right: 140px;
-    top: 18px;
-    font-size: 16px;
-    line-height: 18px;
-
-    border: 1px solid #73D05B;
-    color: #73D05B;
-    background-color: #ffffff;
-    border-radius: 1px;
-}
-.top-bar-sign-in{
-
-    font-family: 'IBM Plex Sans Condensed';
-    position: fixed;
-    width: 85px;
-    height: 40px;
-    right: 50px;
-    top: 18px;
-    font-size: 16px;
-    line-height: 18px;
-
-    color: white;
-    background: #73D05B;
-    border-radius: 1px;
-    border: 1px solid #73D05B;
-}
-
-table{
-    border: 3px solid black;
+    .top-bar-create-account-link{
+        color: #73D05B;
+        text-decoration: none;
+    }
+    .top-bar-sign-in{
+    
+        font-family: 'IBM Plex Sans Condensed';
+        position: absolute;
+        width: 85px;
+        height: 40px;
+        right: 50px;
+        top: 18px;
+        font-size: 16px;
+        line-height: 18px;
+    
+        color: white;
+        background: #73D05B;
+        border-radius: 1px;
+        border: 1px solid #73D05B;
+    }
+    .top-bar-sign-in-link{
+        color: white;
+        text-decoration: none;
+    }
+    table{
+        border: 3px solid black;
+        width: 100%;
+    }
+    tr{
+        border: 3px solid black;
+    }
+    .square{
+        width: 260px;
+        height: 300px;
+        background: #BBFFAA;
+    }
+    .sign-up-form{
+        width: 400px;
+            box-shadow: 0 0 3px 0 rgba(0,0,0,0.3);
+            background: #fff;
+            padding: 20px;
+            margin: 8% auto 0;
+            text-align: center;
+    }
+    .sign-up-form h1
+    {
+        margin-bottom: 30px;
+    }
+    .input-box
+    {
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px 0;
     width: 100%;
-}
-tr{
-    border: 3px solid black;
-}
-.square{
-    width: 260px;
-    height: 300px;
+    border: 1px solid #999;
+    outline: none;
+    }
+    .sign-btn
+    {
+    margin-top: -5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 15px;
+    gap: 8px;
+    width: 100px;
+    height: 30px;
     background: #BBFFAA;
-}
-
-
-
+    border: 1px solid #BBFFAA;
+    /* drop-shadow/button-primary */
+    box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
+    border-radius: 2px;
+    /* Inside auto layout */
+    flex: none;
+    order: 3;
+    flex-grow: 0;
+    z-index: 0;
+    }
+    .log-in-form{
+        width: 400px;
+            box-shadow: 0 0 3px 0 rgba(0,0,0,0.3);
+            background: #fff;
+            padding: 20px;
+            margin: 8% auto 0;
+            text-align: center;
+    }
+    .male-btn{
+        background: #BBFFAA;
+    }
+    .female-btn{
+        background: #BBFFAA;
+    }
+    .other-btn{
+        background: #BBFFAA;
+    }

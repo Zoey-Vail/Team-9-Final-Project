@@ -1,6 +1,6 @@
-CREATE TABLE accounts (
+CREATE TABLE account (
     username VARCHAR(255),
-    passsword VARCHAR(255),
+    password VARCHAR(255),
 	email    VARCHAR(255),
     age    VARCHAR(255),
     website    VARCHAR(255),
@@ -9,5 +9,5 @@ CREATE TABLE accounts (
     concentration    VARCHAR(255),
     PRIMARY KEY (username)
 );
-select username
-from accounts;
+select username, password, email, age, website, gender, major, concentration
+from account;
