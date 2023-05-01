@@ -5,9 +5,13 @@ class accMethods:
         db.create_all()
         return None
     
-    def get_all_movies(self):
-        # TODO get all movies from the DB
-        return None
+    def verify_account(self, username, password):
+        # get all movies from the DB
+        print('hello')
+        check = account.query.filter_by(username = username).first()
+        if (check.password == password):
+            return check
+        return check
 
     def get_account(self, _usename):
         # TODO get a single movie from the DB using the ID

@@ -8,6 +8,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:32011509@localhost:3306/ac
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
+if_Create_Account = False
 
 #Define a route for the homepage
 @app.get('/')
@@ -40,16 +41,23 @@ def account(username):
 #Takes input from create account page and refers to the users account page
 @app.post('/account')
 def create_account():
-    _username_ = request.form.get('username')
-    password = request.form.get('password')
-    email = request.form.get('email')
-    age = request.form.get('age')
-    website = request.form.get('website')
-    gender = request.form.get('gender')
-    major = request.form.get('major')
-    concentration = request.form.get('concentration')
-    created_account = account_methods.create_account(_username_, password, email, age, website, gender, major, concentration)
-    print(created_account.password)
+    exists = request.form.get('if_exists')
+    if (exists == "True"):
+        print('true')
+        username = request.form.get('username')
+        password = request.form.get('password')
+        email = request.form.get('email')
+        age = request.form.get('age')
+        website = request.form.get('website')
+        gender = request.form.get('gender')
+        major = request.form.get('major')
+        concentration = request.form.get('concentration')
+        created_account = account_methods.create_account(username, password, email, age, website, gender, major, concentration)
+    if (exists == "False"):
+        print('false')
+        check_username = request.form.get('username')
+        check_password = request.form.get('password')
+        created_account = account_methods.verify_account(check_username, check_password)
     return redirect(f'/account/{created_account.username}')
 #Define a route for the Login page
 @app.get('/login')
