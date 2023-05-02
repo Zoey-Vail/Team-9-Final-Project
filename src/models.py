@@ -2,6 +2,7 @@
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy(session_options={"expire_on_commit": False})
 
+#This is the table for the Account Object. 
 class account(db.Model):
     username = db.Column(db.String(255), primary_key=True)
     password = db.Column(db.String(255), nullable=False)
@@ -12,6 +13,17 @@ class account(db.Model):
     major = db.Column(db.String(255), nullable=False)
     concentration = db.Column(db.String(255), nullable=False)
 
+#Forum Class that Zoey Made
+class forum(db.Model):
+    forum_name = db.Column(db.String(255), primary_key=True)
+    description = db.Column(db.String(255), nullable=False)
+
+    def init(self, _forName, _descript):
+        self.forum_name = _forName
+        self.password = _descript
+
+
+    #Constructor for the accounts object
     def __init__(self, _uName, _pWord, _eMail, _age, _wSite, _gender, _major, _concentration):
         self.username = _uName
         self.password = _pWord
@@ -21,3 +33,5 @@ class account(db.Model):
         self.gender = _gender
         self.major = _major
         self.concentration = _concentration
+
+

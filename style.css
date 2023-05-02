@@ -26,8 +26,6 @@
     padding-left: 20px;
 }
 
-
-
 .top-bar-buttons{
     color: rgb(255, 255, 255);
     font-family: 'IBM Plex Sans Condensed';
@@ -185,3 +183,8 @@ tr{
         color: rgb(0, 0, 0);
     }
 
+    .error-message{
+        color: red;
+        text-decoration: solid;
+
+    }

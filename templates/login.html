@@ -8,6 +8,8 @@
     
     <!-- This is the navbar at the top of the page-->
     <!-- <h1 class = "top-bar">UNCC <br>Student Forum</h1> -->
+
+    <!-- NEED TO ADD WRONG PASSWORD OR USERNAME IN LOGIN-->
 <!DOCTYPE html>
 <div class="container-fluid">    
     <title>Sign Up Form</title>
@@ -17,8 +19,12 @@
                 <form action="/account" method="post">
                     <label for="Username" class="Username.txt">Username:</label><input type="text" class="input-box" name="username" placeholder="Username">
                     <label for="Password">Password:</label><input type="text" class="input-box" name="password" placeholder="Password">
+
+                    <!-- Implementation of changing your password-->
                     <p>Forgot your password? <a href="#">Click Here</a></p>
-                    <button type="submit", name= "if_exists", value= "False", class="sign-btn">Sign in</button>
+
+                    <!-- This is the sign in button that you click to sign in-->
+                    <button type="submit", name= "account_action", value= "login", class="sign-btn">Sign in</button>
                 </form>
             </div>
         </body>

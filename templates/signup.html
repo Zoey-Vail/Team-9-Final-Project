@@ -8,10 +8,14 @@
 <title>Sign Up Form</title>
     <body>
         <div class="sign-up-form">
+            <!--This is the associated error that will occur if the username already exists-->
+            <h1 class="error-message">{{error2}}</h1>
+
+
             <h1> Sign Up</h1>
             <form action="/account" method="post">
             <label for="Username" class="Username.txt">Username:</label><input type="text" name="username" class="input-box" placeholder="Username">
-            <label for="Password">Password:</label><input type="password" class="input-box" placeholder="Password" name="password">
+            <label for="Password">Password:</label><input type="text" class="input-box" placeholder="Password" name="password">
             <label for="Email">Email:</label><input type="text" class="input-box" placeholder="Email" name="email">
             <label for="Age">Age:</label><input type="number" class="input-box" placeholder="Age" name="age">
             <label for="Website">Website:</label><input type="text" class="input-box" placeholder="Website" name="website">
@@ -23,10 +27,12 @@
             <label for="Major">Major:</label><input type="text" class="input-box" placeholder="Major" name="major">
             <label for="Concentration">Concentration:</label><input type="text" class="input-box" placeholder="Concentration" name="concentration">
             <p><span><input type="checkbox"></span>I agree to the terms of services</p>
-            <center>
-            <button type="submit", name= "if_exists", value= "True", class="sign-btn">Sign up</button>
-            </center>
-            <p>Do you have an account? <a href="#">Sign in</a></p>
+
+            <!-- When you click the submit button on the signup form it returns the name account_action and the value associated which is True-->
+            <button type="submit", name= "account_action", value= "signup", class="sign-btn">Sign up</button>
+
+            <!-- Redirect to login page-->
+            <p>Do you have an account? <a href="/login">Sign in</a></p>
             </form>
         </div>
     </body>
