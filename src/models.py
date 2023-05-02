@@ -13,16 +13,6 @@ class account(db.Model):
     major = db.Column(db.String(255), nullable=False)
     concentration = db.Column(db.String(255), nullable=False)
 
-#Forum Class that Zoey Made
-class forum(db.Model):
-    forum_name = db.Column(db.String(255), primary_key=True)
-    description = db.Column(db.String(255), nullable=False)
-
-    def init(self, _forName, _descript):
-        self.forum_name = _forName
-        self.password = _descript
-
-
     #Constructor for the accounts object
     def __init__(self, _uName, _pWord, _eMail, _age, _wSite, _gender, _major, _concentration):
         self.username = _uName
@@ -35,3 +25,11 @@ class forum(db.Model):
         self.concentration = _concentration
 
 
+#Forum Class that Zoey Made
+class forum(db.Model):
+    forum_name = db.Column(db.String(255), primary_key=True)
+    description = db.Column(db.String(255), nullable=False)
+
+    def init(self, _forName, _descript):
+        self.forum_name = _forName
+        self.description = _descript
