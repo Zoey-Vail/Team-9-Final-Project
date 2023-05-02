@@ -4,6 +4,7 @@ from src.models import db
 
 
 app = Flask(__name__, template_folder='templates', static_folder='StaticFile')
+#DO NOT FORGET TO CHANGE THE PASSWORD BELOW TO THE ONE WITHIN YOUR MYSQL WORKBENCH THIS IS DIFFERENT FOR EVERYONE
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:CHANGE PASSWORD HERE@localhost:3306/accounts'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
