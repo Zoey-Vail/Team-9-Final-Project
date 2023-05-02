@@ -42,9 +42,10 @@ def account(username):
 #Takes input from create account page and refers to the users account page
 @app.post('/account')
 def create_account():
-    exists = request.form.get('if_exists')
-    if (exists == "True"):
-        print('true')
+    signupOrLogin = request.form.get('account_action')
+    #----------------Signup Sheet if true----------------
+    if (signupOrLogin == "signup"):
+        accountExists = False
         username = request.form.get('username')
         password = request.form.get('password')
         email = request.form.get('email')
@@ -53,13 +54,28 @@ def create_account():
         gender = request.form.get('gender')
         major = request.form.get('major')
         concentration = request.form.get('concentration')
-        created_account = account_methods.create_account(username, password, email, age, website, gender, major, concentration)
-    if (exists == "False"):
-        print('false')
+        #This if statement below checks if the username already exists within the database
+        
+        #if(username == account_methods.get_account(username).username):
+        if(account_methods.account_exists(username) == True):
+            error = 'Account Name already exists please retry'
+            return render_template('signup.html', error2 = error)
+        else:
+            created_account = account_methods.create_account(username, password, email, age, website, gender, major, concentration)
+            #return render_template('account.html', )
+            return redirect(f'/account/{created_account.username}')
+
+    #----------------Login sheet if false----------------
+    if (signupOrLogin == "login"):
         check_username = request.form.get('username')
         check_password = request.form.get('password')
-        created_account = account_methods.verify_account(check_username, check_password)
-    return redirect(f'/account/{created_account.username}')
+        
+        check_account = account_methods.verify_account(check_username, check_password)
+    if (check_account == True):
+        created_account = account_methods.get_account(check_username)
+        return redirect(f'/account/{created_account.username}')
+
+    
 #Define a route for the Login page
 @app.get('/login')
 def login():
