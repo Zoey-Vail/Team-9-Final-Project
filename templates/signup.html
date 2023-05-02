@@ -11,19 +11,21 @@
             <h1> Sign Up</h1>
             <form action="/account" method="post">
             <label for="Username" class="Username.txt">Username:</label><input type="text" name="username" class="input-box" placeholder="Username">
-            <label for="Password">Password:</label><input type="text" class="input-box" placeholder="Password" name="password">
+            <label for="Password">Password:</label><input type="password" class="input-box" placeholder="Password" name="password">
             <label for="Email">Email:</label><input type="text" class="input-box" placeholder="Email" name="email">
             <label for="Age">Age:</label><input type="number" class="input-box" placeholder="Age" name="age">
             <label for="Website">Website:</label><input type="text" class="input-box" placeholder="Website" name="website">
             <label for="Gender">Gender:</label>
-            <button type="button" class="male-btn">Male</button>
-            <button type="button" class="female-btn">Female</button>
-            <button type="button" class="Other-btn">Other</button>
+            <input type="radio" name="gender" value="male">Male
+            <input type="radio" name="gender" value="female">Female
+            <input type="radio" name="gender" value="other">Other
             <br></br>
             <label for="Major">Major:</label><input type="text" class="input-box" placeholder="Major" name="major">
             <label for="Concentration">Concentration:</label><input type="text" class="input-box" placeholder="Concentration" name="concentration">
             <p><span><input type="checkbox"></span>I agree to the terms of services</p>
+            <center>
             <button type="submit", name= "if_exists", value= "True", class="sign-btn">Sign up</button>
+            </center>
             <p>Do you have an account? <a href="#">Sign in</a></p>
             </form>
         </div>
