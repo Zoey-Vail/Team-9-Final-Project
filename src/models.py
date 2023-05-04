@@ -2,9 +2,8 @@
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy(session_options={"expire_on_commit": False})
 
-#This is the table for the Account Object. 
 class account(db.Model):
-    username = db.Column(db.String(255), primary_key=True)
+    username = db.Column(db.String(255), primary_key=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False)
     age = db.Column(db.Integer, nullable=False)
@@ -13,7 +12,6 @@ class account(db.Model):
     major = db.Column(db.String(255), nullable=False)
     concentration = db.Column(db.String(255), nullable=False)
 
-    #Constructor for the accounts object
     def __init__(self, _uName, _pWord, _eMail, _age, _wSite, _gender, _major, _concentration):
         self.username = _uName
         self.password = _pWord
@@ -24,12 +22,13 @@ class account(db.Model):
         self.major = _major
         self.concentration = _concentration
 
-
-#Forum Class that Zoey Made
-class forum(db.Model):
-    forum_name = db.Column(db.String(255), primary_key=True)
-    description = db.Column(db.String(255), nullable=False)
-
-    def init(self, _forName, _descript):
+class forums(db.Model):
+    forum_id = db.Column(db.Integer, primary_key=True)
+    forum_name = db.Column(db.String(255))
+    description = db.Column(db.String(255))
+    
+    def __init__(self, _forID, _forName, _descript):
+        self.forum_id = _forID
         self.forum_name = _forName
         self.description = _descript
+        

@@ -25,14 +25,10 @@
                         <td>test</td>
                         <td>{{ account.username }}</td>
                         <td>
-                            <div class="square">
-                                <a href="homepage-light-mode.html">
-                                    <img src="account_tree.png" style="margin-left: 10px; margin-top: 10px;">
-                                </a>
-                                <h3 style="margin-left: 10px;">You must log in to Follow any forums</h3><body style="">
-                                    Create an account or log in to create and follow forums.</body>
-                                </div>
-                            </td>
+                            {% for forum in forum_list %}
+                              <li><a href="/create_post">{{ forum.forum_name }}</a></li>
+                            {% endfor %}
+                        </td>
                       </tr>
                     </tbody>
             </tbody>

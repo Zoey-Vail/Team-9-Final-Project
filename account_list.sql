@@ -9,5 +9,14 @@ CREATE TABLE account (
     concentration    VARCHAR(255),
     PRIMARY KEY (username)
 );
+CREATE TABLE forums (
+	forum_id INT,
+    forum_name VARCHAR(255),
+    description VARCHAR(255),
+    PRIMARY KEY (forum_id)
+);
 select username, password, email, age, website, gender, major, concentration
 from account;
+
+select forum_id, forum_name, description
+from forums;

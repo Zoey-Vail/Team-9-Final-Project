@@ -1,33 +1,33 @@
 <div style = "top: 0px;">
-{% extends 'top_bar_logout_dark.html' %}
-</div>
-{% block body %}
-<div style = "height: 100px;"></div>
-<html>
-    
-    
-    <!-- This is the navbar at the top of the page-->
-    <!-- <h1 class = "top-bar">UNCC <br>Student Forum</h1> -->
-
-    <!-- NEED TO ADD WRONG PASSWORD OR USERNAME IN LOGIN-->
-<!DOCTYPE html>
-<div class="container-fluid">    
-    <title>Sign Up Form</title>
-        <body>
-            <div class="log-in-form">
-                <h1>Log In</h1>
-                <form action="/account" method="post">
-                    <label for="Username" class="Username.txt">Username:</label><input type="text" class="input-box" name="username" placeholder="Username">
-                    <label for="Password">Password:</label><input type="text" class="input-box" name="password" placeholder="Password">
-
-                    <!-- Implementation of changing your password-->
-                    <p>Forgot your password? <a href="#">Click Here</a></p>
-
-                    <!-- This is the sign in button that you click to sign in-->
-                    <button type="submit", name= "account_action", value= "login", class="sign-btn">Sign in</button>
-                </form>
-            </div>
-        </body>
+    {% extends 'top_bar_logout_dark.html' %}
     </div>
-</html>
-{% endblock %}
+    {% block body %}
+    <div style = "height: 100px;"></div>
+    <html>
+        
+        
+        <!-- This is the navbar at the top of the page-->
+        <!-- <h1 class = "top-bar">UNCC <br>Student Forum</h1> -->
+    
+        <!-- NEED TO ADD WRONG PASSWORD OR USERNAME IN LOGIN-->
+    <!DOCTYPE html>
+    <div class="container-fluid">    
+        <title>Sign Up Form</title>
+            <body>
+                <div class="log-in-form">
+                    <h1>Log In</h1>
+                    <form action="/account" method="post">
+                        <label for="Username" class="Username.txt">Username:</label><input type="text" class="input-box" name="username" placeholder="Username">
+                        <label for="Password">Password:</label><input type="text" class="input-box" name="password" placeholder="Password">
+    
+                        <!-- Implementation of changing your password-->
+                        <p>Forgot your password? <a href="#">Click Here</a></p>
+    
+                        <!-- This is the sign in button that you click to sign in-->
+                        <button type="submit", name= "account_action", value= "login", class="sign-btn">Sign in</button>
+                    </form>
+                </div>
+            </body>
+        </div>
+    </html>
+    {% endblock %}

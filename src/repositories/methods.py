@@ -1,21 +1,29 @@
-from src.models import db, account, forum
-id_counter = 0
+from src.models import db, account, forums
+import lorem
+
 class accMethods:
+    # Creates the database
     def create_data(self):
         db.create_all()
         return None
     
+    # Clears data from all tables
+    def clear_data(session):
+        meta = db.metadata
+        for table in reversed(meta.sorted_tables):
+            db.session.execute(table.delete())
+        db.session.commit()
+
+    #This is the verification for the database 
     def verify_account(self, username, password):
-        #This is the verification for the database 
         print('hello')
         check = account.query.filter_by(username = username).first()
         if (check.password == password):
             return True
         elif (check.password != password):
             return False
-
+    # gets a single account from the database
     def get_account(self, _usename):
-        # TODO gets a single account from the database
         result = account.query.filter_by(username = _usename).first()
         return result
     
@@ -25,27 +33,40 @@ class accMethods:
                 return True
         except Exception as err:
             return False
-
+        
+    # Gets the amount of forums in the forum table
+    def get_number_of_forums(self):
+        try:
+            return int(forums.query.count())
+        except Exception as err:
+            return 0
+    # Gets the forum object with forum_id matching id parameter
+    def get_forum_by_id(self, id):
+        forum_to_return = forums.query.filter_by(forum_id = id).first()
+        return forum_to_return
+    # adds all forums in the database to an array and returns the array
+    def add_forums_to_array(self, forum_arr):
+        query = forums.query.all()
+        for row in query:
+            forum_arr.append(row)
+        return forum_arr
+    # Creates an example forum and adds it to the database
+    def create_forums(self, forum_id):
+        descript = lorem.sentence()
+        descript_split = descript.split()
+        # creates a new forum with the forum_id paramater, a name containing the first word of the description, and a description from the lorem generator
+        new_forum = forums(_forID = forum_id, _forName = ("Forum "+ descript_split[0]), _descript = descript)
+        db.session.add(new_forum)
+        db.session.commit()
+        return new_forum
+        
+    # Creates account from parameters given and adds it to the database
     def create_account(self, username, password, email, age, website, gender, major, concentration):
-        # TODO Creates a new account
-
         new_account = account(_uName = username, _pWord = password, _eMail = email, _age = age, _wSite = website, _gender = gender, _major = major, _concentration = concentration)
         db.session.add(new_account)
         db.session.commit()
         return new_account
 
-    def create_forums(self):
-        # TODO get a single movie from the DB using the ID
-        global counter
-        counter = counter + 1
-        new_forum = forum(_forName = ("Forum "+ str(counter)), _descript = ("this is forum" + str(counter)))
-        db.session.add(new_forum)
-        db.session.commit()
-        return new_forum
 
-    def search_movies(self, title):
-        # TODO get all movies matching case insensitive substring (SQL LIKE, use google for how to do with SQLAlchemy)
-        return None
-
-# Singleton to be used in other modules
+#object containing the methods used in the app.py
 account_methods = accMethods()
