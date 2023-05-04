@@ -14,7 +14,7 @@ forum_list = []
 def home():
     
 #------------!!!-uncomment line below and run app.py to clear the database-!!!------------
-    account_methods.clear_data()
+    #account_methods.clear_data()
 #-----------------------------------------------------------------------------------------    
     account_methods.create_data()
     return render_template('homepage.html')
