@@ -1,6 +1,5 @@
 from flask import Flask, abort, redirect, render_template, request, send_from_directory
 from src.repositories.methods import account_methods
-from jinja2.utils import urlize
 from src.models import db
 
 app = Flask(__name__, template_folder='templates', static_folder='StaticFile')
@@ -14,7 +13,7 @@ forum_list = []
 def home():
     
 #------------!!!-uncomment line below and run app.py to clear the database-!!!------------
-    #account_methods.clear_data()
+    account_methods.clear_data()
 #-----------------------------------------------------------------------------------------    
     account_methods.create_data()
     return render_template('homepage.html')
@@ -91,10 +90,26 @@ def create_account():
 @app.get('/login')
 def login():
     return render_template('login.html')
-@app.get('/create_post')
+@app.get('/forum/<int:forum_id>')
+def forum_page(forum_id):
+    sent_forum = account_methods.get_forum_by_id(forum_id)
+    return render_template('forum_page.html', sent_forum = sent_forum)
+@app.post('/forum')
+def find_forum_page():
+    forum_id = request.form.get('for_ID')
+    print(forum_id)
+    return redirect(f'/forum/{forum_id}')
+    
+@app.get('/forum/create_post')
 def create_forum_post():
     return render_template('create_forum_post.html')
 
+#app.get('discussion//<string:title>')
+#def show_discussion():
+    #return render_template()
+@app.post('/discussion')
+def post_discussion():
+    return redirect(f'/discussion/{}')
 #Send images
 
 

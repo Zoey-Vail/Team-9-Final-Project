@@ -2,6 +2,17 @@
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy(session_options={"expire_on_commit": False})
 
+#class utility(db.Model):
+    #current_username = db.Column(db.Integer, primary_key=True, nullable=False)
+    #current_forum_id = db.Column(db.Integer)
+    #ogged_in = db.Column(db.Boolean)
+
+    #def __init__(self, curr_user, curr_for_ID, logged):
+        #self.current_username = curr_user
+        #self.current_forum_id = curr_for_ID
+        #self.logged_in = logged
+
+
 class account(db.Model):
     username = db.Column(db.String(255), primary_key=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
@@ -31,4 +42,25 @@ class forums(db.Model):
         self.forum_id = _forID
         self.forum_name = _forName
         self.description = _descript
-        
+
+class discussion(db.Model):
+    discuss_ID = forum_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    creator_username = db.Column(db.String(255), nullable=False)
+    parent_forum_ID = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255), nullable=False)
+    content = db.Column(db.String, nullable=False)
+    tags = db.Column(db.String(255))
+    majors = db.Column(db.String(255))
+    classes = db.Column(db.String(255))
+    companies = db.Column(db.String(255))
+
+    def __init__(self, _discussID, _creator, _parentForID, _title, _content, _tag, _major, _class, _company):
+        self.discuss_ID = _discussID
+        self.creator_username = _creator
+        self.parent_forum_ID
+        self.title = _title
+        self.content = _content
+        self.tags = _tag
+        self.majors = _major
+        self.classes = _class
+        self.companies = _company

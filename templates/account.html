@@ -25,9 +25,11 @@
                         <td>test</td>
                         <td>{{ account.username }}</td>
                         <td>
+                          <form action="/forum" method="post">
                             {% for forum in forum_list %}
-                              <li><a href="/create_post">{{ forum.forum_name }}</a></li>
+                              <button type="submit", name= "for_ID", value= '{{ forum.forum_id }}', class = "forum-button">{{ forum.forum_name }}</button><br>
                             {% endfor %}
+                          </form>
                         </td>
                       </tr>
                     </tbody>

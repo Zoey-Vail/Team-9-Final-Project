@@ -16,7 +16,6 @@ class accMethods:
 
     #This is the verification for the database 
     def verify_account(self, username, password):
-        print('hello')
         check = account.query.filter_by(username = username).first()
         if (check.password == password):
             return True
