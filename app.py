@@ -3,7 +3,8 @@ from src.repositories.methods import account_methods
 from src.models import db
 
 app = Flask(__name__, template_folder='templates', static_folder='StaticFile')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:32011509@localhost:3306/accounts'
+#Change password below to your own SQL Database Password
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:CHANGE PASSWORD HERE @localhost:3306/accounts'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 if_Create_Account = False
