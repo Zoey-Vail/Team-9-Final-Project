@@ -8,7 +8,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 if_Create_Account = False
 forum_list = []
-#Define a route for the homepage
+# Runs on application startup
 with app.app_context():
     #------------!!!-uncomment line below and run app.py to clear the database-!!!------------
     #account_methods.clear_data()
@@ -28,7 +28,7 @@ with app.app_context():
 
 
 
-
+#Define a route for the homepage
 @app.get('/')
 def home():
  
