@@ -26,13 +26,43 @@ class accMethods:
         result = account.query.filter_by(username = _usename).first()
         return result
     
+    #This method checks if the account exists and if it does then will return True if not False
     def account_exists(self, username):
         try:
             if(username == account_methods.get_account(username).username):
                 return True
         except Exception as err:
             return False
-        
+    
+    #This method shows whether or not an account is currently authorized accross the website
+    def account_Authorize_check(self, username):
+        try:
+            authorized = account_methods.get_account(username).logged_In
+            if(authorized == True):
+                return True
+            else:
+                return False
+        except Exception as err:
+            raise Exception('Error has been thrown because login authorization does not work')
+    
+    #This method authorizes an account to go through the site after login. 
+    def account_Authorization(self, username):
+        try:
+            check = account.query.filter_by(username = username).first()
+            check.logged_In = True
+            db.session.commit()
+        except Exception as err:
+            raise Exception('Error has been thrown because login authorization does not work')
+
+    #This method unauthorizes an account to go through the site after they are done. 
+    def account_unAuthorization(self, username):
+        try:
+            check = account.query.filter_by(username = username).first()
+            check.logged_In = False
+            db.session.commit()
+        except Exception as err:
+            raise Exception('Error has been thrown because login authorization does not work')
+
     # Gets the amount of forums in the forum table
     def get_number_of_forums(self):
         try:

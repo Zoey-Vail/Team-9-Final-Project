@@ -22,6 +22,8 @@ class account(db.Model):
     gender = db.Column(db.String(255))
     major = db.Column(db.String(255), nullable=False)
     concentration = db.Column(db.String(255), nullable=False)
+    #This below is the login state for the user when traversing the website
+    logged_In = db.Column(db.Boolean, default=False,nullable=False)
 
     def __init__(self, _uName, _pWord, _eMail, _age, _wSite, _gender, _major, _concentration):
         self.username = _uName
@@ -32,6 +34,7 @@ class account(db.Model):
         self.gender = _gender
         self.major = _major
         self.concentration = _concentration
+        self.logged_In = True
 
 class forums(db.Model):
     forum_id = db.Column(db.Integer, primary_key=True)
@@ -48,7 +51,7 @@ class discussion(db.Model):
     creator_username = db.Column(db.String(255), nullable=False)
     parent_forum_ID = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
-    content = db.Column(db.String, nullable=False)
+    content = db.Column(db.String(255), nullable=False)
     tags = db.Column(db.String(255))
     majors = db.Column(db.String(255))
     classes = db.Column(db.String(255))
