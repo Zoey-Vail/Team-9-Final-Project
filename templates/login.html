@@ -15,13 +15,14 @@
         <title>Sign Up Form</title>
             <body>
                 <div class="log-in-form">
+                    <h1 class="error-message">{{error}}</h1>
                     <h1>Log In</h1>
                     <form action="/account" method="post">
                         <label for="Username" class="Username.txt">Username:</label><input type="text" class="input-box" name="username" placeholder="Username">
                         <label for="Password">Password:</label><input type="text" class="input-box" name="password" placeholder="Password">
-    
+                        
                         <!-- Implementation of changing your password-->
-                        <p>Forgot your password? <a href="#">Click Here</a></p>
+                        <p>Forgot your password? <a href="/sucks">Click Here</a></p>
     
                         <!-- This is the sign in button that you click to sign in-->
                         <button type="submit", name= "account_action", value= "login", class="sign-btn">Sign in</button>
