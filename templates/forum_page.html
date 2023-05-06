@@ -1,34 +1,39 @@
 <div>
-    {% extends 'top_bar_logout_dark.html' %}
-    </div>
-    
-    <!--|||||||||||||||||||||||||||THIS IS THE TASK BAR COMPLETED ABOVE EVERYTHING BELOW IS PART OF EACH PAGE|||||||||||||||||||||||||||-->
-    {% block body %}
-    <html>
-    
-    
-    <!-- Everything below is subject to change--> 
-    <!DOCTYPE html>
-    <div class="container-fluid">
-        <table class="table table-bordered"style="position: absolute; top: 75px; bottom: 0; left: 0; right: 0; border: 3px;" >
-            <thead style="height: 50px;">
-              <tr >
-                <th style="width: 180px;">Description</th>
-                <th>Recent Posts</th>
-                <th style="width: 275px;">Create Post</th>
-              </tr>
-            </thead>
-            <tbody>
-                  <tbody>
-                      <tr style="height: 614px;">
-                        <td>{{ sent_forum.description }}</td>
-                        <td>test</td>
-                        <td><a href="/forum/create_post">Post to {{ sent_forum.forum_name }}</a></td>
-                      </tr>
-                    </tbody>
-            </tbody>
-          </table>
-        </div>
-    
-    </html>
-    {% endblock %}
+  {% extends 'top_bar_logout_dark.html' %}
+  </div>
+
+  <!--|||||THIS IS THE TASK BAR COMPLETED ABOVE EVERYTHING BELOW IS PART OF EACH PAGE|||||-->
+  {% block body %}
+  <html>
+
+
+  <!-- Everything below is subject to change--> 
+  <!DOCTYPE html>
+  <div class="container-fluid">
+      <table class="table table-bordered"style="position: absolute; top: 75px; bottom: 0; left: 0; right: 0; border: 3px;" >
+          <thead style="height: 50px;">
+            <tr >
+              <th style="width: 180px;">Description</th>
+              <th>Recent Posts</th>
+              <th style="width: 275px;">Create Post</th>
+            </tr>
+          </thead>
+          <tbody>
+                <tbody>
+                    <tr style="height: 614px;">
+                      <td>{{ sent_forum.description }}</td>
+                      <td>
+                        <form action="/discussion" method="post">
+                          {% for post in posts_list %}
+                            <button type="submit", name= "creating_post", value= '{{ post.discuss_ID }}', class = "forum-button">{{ post.title }}</button><br>
+                          {% endfor %}
+                      </td>
+                      <td><a href="/forum/create_post">Post to {{ sent_forum.forum_name }}</a></td>
+                    </tr>
+                  </tbody>
+          </tbody>
+        </table>
+      </div>
+
+  </html>
+  {% endblock %}

@@ -1,5 +1,8 @@
-from src.models import db, account, forums
+from src.models import db, account, forums, discussion
 import lorem
+
+
+
 
 class accMethods:
     # Creates the database
@@ -33,7 +36,10 @@ class accMethods:
                 return True
         except Exception as err:
             return False
-    
+        
+        
+#-------------------------------------------------- Authorization Section of Program--------------------------------------------------
+   
     #This method shows whether or not an account is currently authorized accross the website
     def account_Authorize_check(self, username):
         try:
@@ -63,6 +69,8 @@ class accMethods:
         except Exception as err:
             raise Exception('Error has been thrown because login authorization does not work')
 
+#-------------------------------------------------- Authorization Section of Program Above--------------------------------------------------
+
     # Gets the amount of forums in the forum table
     def get_number_of_forums(self):
         try:
@@ -88,6 +96,35 @@ class accMethods:
         db.session.add(new_forum)
         db.session.commit()
         return new_forum
+    
+    def get_last_discussion_ID(self):
+        post_amount = 0
+        try:
+            post_amount = int(forums.query.count())
+        except Exception as err:
+            return post_amount
+        last_post = discussion.query.order_by(discussion.discuss_ID.desc()).first()
+        print('last= '+ str(last_post.discuss_ID))
+        return last_post.discuss_ID
+
+    def get_post_by_ID(self, post_ID):
+        post_to_return = discussion.query.filter_by(discuss_ID = post_ID).first()
+        return post_to_return
+
+
+    def get_posts_by_forum(self, forum_id):
+        post_arr = []
+        query = discussion.query.filter_by(parent_forum_ID = forum_id)
+        for row in query:
+            post_arr.append(row)
+        return post_arr
+
+    def get_posts_by_user(self, user_ID):
+        post_arr = []
+        query = discussion.query.filter_by(creator_username = user_ID)
+        for row in query:
+            post_arr.append(row)
+        return post_arr
         
     # Creates account from parameters given and adds it to the database
     def create_account(self, username, password, email, age, website, gender, major, concentration):

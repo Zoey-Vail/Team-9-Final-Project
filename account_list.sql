@@ -33,3 +33,6 @@ from account;
 
 select forum_id, forum_name, description
 from forums;
+
+select discuss_ID, title, content, creator_username, parent_forum_ID
+from discussion;

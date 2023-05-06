@@ -9,7 +9,6 @@
 <!--|||||||||||||||||||||||||||This is the Taskbar COMPLETED BELOW|||||||||||||||||||||||||||-->
 <!-- <h1 class = "top-bar">UNCC <br>Student Forum</h1> -->
 
-
   
     <div class = "top-bar">
         <h1 class="top-bar-uncc">UNCC <br>Student Forum</h1>
@@ -18,8 +17,8 @@
         <button class = "top-bar-buttons"><a href="/account/new", class="top-bar-links">Account</a></button>
         <button class = "top-bar-buttons"><a href="/about", class="top-bar-links">About</a></button>
     <!-- This is the dark mode button that will change the page from Dark mode to light mode-->
-        <button class = "top-bar-buttons"> <a href="/homepage-lightmode"><img src="{{url_for('static', filename='Vector.png')}}"/></a></button>
-
+        <button class = "top-bar-buttons"> <a href="/homepage-lightmode"><img src="{{url_for('static', filename='Images/Vector.png')}}"/></a></button>
+        
     <!--This is the Search Bar-->
     <form>
         <input type="text" class="top-bar-search" placeholder="Search..">
@@ -27,10 +26,25 @@
             </button>
     </form>
         
+    
+
+        {% if currentUsername == 'Not Logged in' %}
     <!--These are the account creation and sign in buttons at the top-->
-            <button class="top-bar-create-account-button"><a href="/account/new", class="top-bar-create-account-link">Create Account</a></button>
-            <button class="top-bar-sign-in"><a href="/login", class = "top-bar-sign-in-link">Sign In</a></button>
+        <button class="top-bar-create-account-button"><a href="/account/new", class="top-bar-create-account-link">Signup</a></button>
+        <button class="top-bar-sign-in"><a href="/login", class = "top-bar-sign-in-link">Log In</a></button>
+
+        {% else %}
+            
+            <button class="top-bar-create-account-button"><a href="/account/new", class="top-bar-create-account-link">{{currentUsername}}</a></button>
+            <form method="post">
+                <button class="top-bar-sign-in" type="submit", name="account_action"><h3 class = "top-bar-sign-in-link">Sign Out</h3></button>
+            </form>
+            
     </div>
     <div class="container">
+       
+       {% endif %} 
+       
+       
         {% block body %}{% endblock %}
       </div>

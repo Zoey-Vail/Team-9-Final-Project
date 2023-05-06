@@ -1,6 +1,7 @@
 from flask import Flask, abort, redirect, render_template, request, send_from_directory
 from src.repositories.methods import account_methods
 from src.models import db
+from src.models import tempUsername
 
 app = Flask(__name__, template_folder='templates', static_folder='StaticFile')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Mikerocks2319!@localhost:3306/accounts'
@@ -8,7 +9,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 if_Create_Account = False
 forum_list = []
-# Runs on application startup
+
+#Define a route for the homepage
 with app.app_context():
     #------------!!!-uncomment line below and run app.py to clear the database-!!!------------
     #account_methods.clear_data()
@@ -25,23 +27,28 @@ with app.app_context():
     forum_list.clear()
     # Adds all forums in the database to an array and passes it to the account page
     forum_list = account_methods.add_forums_to_array(forum_list)
+    posts_list = account_methods.get_posts_by_forum(0)
 
 
+testing1 = tempUsername('Not Logged in')
 
-#Define a route for the homepage
 @app.get('/')
 def home():
- 
-    return render_template('homepage.html')
-
+    if(testing1.getCurrentUsername == 'Not Logged in'):
+        temp2 = testing1.getCurrentUsername()
+        return render_template('homepage.html',currentUsername = temp2)
+    else:
+        temp2 = testing1.getCurrentUsername()
+        return render_template('homepage.html', currentUsername = temp2)
+    
 #Define a route for the about page
 @app.get('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html',currentUsername = testing1.getCurrentUsername())
 #Define a route for the features page
 @app.get('/features')
 def features():
-    return render_template('features.html')
+    return render_template('features.html',currentUsername = testing1.getCurrentUsername())
 
 #Define a route for the homepage light mode
 @app.route('/homepage-lightmode')
@@ -50,12 +57,14 @@ def homelight():
 #Define a route for the create account page
 @app.get('/account/new')
 def signup():
-    return render_template('signup.html')
+    return render_template('signup.html', currentUsername = testing1.getCurrentUsername())
 #Define a route for the user's account page
 @app.get('/account/<string:username>')
 def account(username):
     current_user = account_methods.get_account(username)
-    return render_template('account.html', account = current_user, forum_list = forum_list)
+    testing1.setCurrentUsername(username)
+    temp2 = testing1.getCurrentUsername()
+    return render_template('account.html', account = current_user, forum_list = forum_list, currentUsername = temp2)
 #Takes input from create account page and refers to the users account page
 @app.post('/account')
 def create_account():
@@ -76,10 +85,12 @@ def create_account():
         #if(username == account_methods.get_account(username).username):
         if(account_methods.account_exists(username) == True):
             signupError = 'Account Name already exists please retry'
-            return render_template('signup.html', error = signupError)
+            return render_template('signup.html', error = signupError, currentUsername = testing1.getCurrentUsername())
         elif(account_methods.account_exists(username) != True):
             created_account = account_methods.create_account(username, password, email, age, website, gender, major, concentration)
-            #return render_template('account.html', )
+            #Changing global currentUsername variable
+            testing1.setCurrentUsername(username)
+
             return redirect(f'/account/{created_account.username}')
 
     #----------------Login sheet if false----------------
@@ -88,50 +99,75 @@ def create_account():
         check_password = request.form.get('password')
         if(account_methods.account_exists(check_username) != True):
             loginError = 'Account does not exist1'
-            return render_template('login.html', error = loginError)
+            return render_template('login.html', error = loginError, currentUsername = testing1.getCurrentUsername())
         
         elif (account_methods.verify_account(check_username, check_password) == True):
             login_account = account_methods.get_account(check_username)
-            login_account.account_Authorization(check_username)
+            account_methods.account_Authorization(check_username)
+        #Changing global currentUsername variable
+            testing1.setCurrentUsername(check_username)     
             return redirect(f'/account/{login_account.username}')
         else:
             loginError = 'Password incorrect please retry'
-            return render_template('login.html', error = loginError)
+            return render_template('login.html', error = loginError, currentUsername = testing1.getCurrentUsername())
 
 
 
 #Define a route for the Login page
 @app.get('/login')
 def login():
-    return render_template('login.html')
+    return render_template('login.html', currentUsername = testing1.getCurrentUsername())
 @app.get('/forum/<int:forum_id>')
 def forum_page(forum_id):
+    global current_forum_id
     sent_forum = account_methods.get_forum_by_id(forum_id)
-    return render_template('forum_page.html', sent_forum = sent_forum)
+    current_forum_id = forum_id
+    posts_list = account_methods.get_posts_by_forum(forum_id)
+    return render_template('forum_page.html', sent_forum = sent_forum, posts_list = posts_list, currentUsername = testing1.getCurrentUsername())
 @app.post('/forum')
 def find_forum_page():
+
     forum_id = request.form.get('for_ID')
+
     print(forum_id)
     return redirect(f'/forum/{forum_id}')
-    
+
 @app.get('/forum/create_post')
 def create_forum_post():
-    return render_template('create_forum_post.html')
+    return render_template('create_forum_post.html', currentUsername = testing1.getCurrentUsername())
 
-#app.get('discussion//<string:title>')
-#def show_discussion():
-    #return render_template()
+@app.get('/discussion/<int:discuss_ID>')
+def show_discussion(discuss_ID):
+    print("hello")
+    show_post = account_methods.get_post_by_ID(discuss_ID)
+    return render_template('discussion.html', show_post = show_post, currentUsername = testing1.getCurrentUsername())
 
-"""""
 @app.post('/discussion')
 def post_discussion():
-    return redirect(f'/discussion/{}')
-#Send images
-"""
+    first_posting = request.form.get('creating_post')
+    print("check" + str(first_posting))
+    global current_forum_id, current_user_id, discussion_counter
+    if first_posting == "True":
+        new_post_ID = int(account_methods.get_last_discussion_ID()) + 1
+        creator_username = current_user_id
+        parent_forum = current_forum_id
+        title = request.form.get('title')
+        content = request.form.get('content')
+        tags = request.form.get('tags')
+        majors = request.form.get('majors')
+        classes = request.form.get('classes')
+        companies = request.form.get('companies')
+        created_post = account_methods.create_post(new_post_ID, creator_username, parent_forum, title, content, tags, majors, classes, companies)
+
+        return redirect(f'/discussion/{created_post.discuss_ID}')
+    else:
+        print(first_posting)
+        created_post = account_methods.get_post_by_ID(first_posting)
+        return redirect(f'/discussion/{created_post.discuss_ID}')
 # This is something Michael added for fun :)
 @app.route('/sucks')
 def sucksToSuck():
-    return render_template('sucks.html')
+    return render_template('sucks.html', currentUsername = testing1.getCurrentUsername())
 
 @app.route('/Images/<path:path>')
 def send_image(path):

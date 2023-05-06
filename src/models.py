@@ -13,6 +13,16 @@ db = SQLAlchemy(session_options={"expire_on_commit": False})
         #self.logged_in = logged
 
 
+class tempUsername:
+    def __init__(self, username:str):
+        self._currentUsername = username
+    
+    def setCurrentUsername(self, username:str):    
+         self._currentUsername = username
+
+    def getCurrentUsername(self):
+        return self._currentUsername
+
 class account(db.Model):
     username = db.Column(db.String(255), primary_key=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
@@ -60,7 +70,7 @@ class discussion(db.Model):
     def __init__(self, _discussID, _creator, _parentForID, _title, _content, _tag, _major, _class, _company):
         self.discuss_ID = _discussID
         self.creator_username = _creator
-        self.parent_forum_ID
+        self.parent_forum_ID = _parentForID
         self.title = _title
         self.content = _content
         self.tags = _tag

@@ -6,7 +6,7 @@
 <html>
 <head>
 
-<!--|||||||||||||||||||||||||||THIS IS THE TASK BAR COMPLETED ABOVE EVERYTHING BELOW IS PART OF EACH PAGE|||||||||||||||||||||||||||-->
+<!--|||||THIS IS THE TASK BAR COMPLETED ABOVE EVERYTHING BELOW IS PART OF EACH PAGE|||||-->
 
 
 
@@ -23,7 +23,11 @@
                   <tbody>
                       <tr style="height: 614px;">
                         <td>test</td>
-                        <td>{{ account.username }}</td>
+                        <td>
+                          <form action="/discussion" method="post">
+                          {% for post in posts_list %}
+                            <button type="submit", name= "creating_post", value= '{{ post.discuss_ID }}', class = "forum-button">{{ post.title }}</button><br>
+                          {% endfor %}</form></td>
                         <td>
                           <form action="/forum" method="post">
                             {% for forum in forum_list %}
@@ -37,4 +41,4 @@
           </table>
         </div>
 
-        {% endblock %}    
+        {% endblock %}
