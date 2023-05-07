@@ -4,7 +4,7 @@ from src.models import db
 from src.models import tempUsername
 
 app = Flask(__name__, template_folder='templates', static_folder='StaticFile')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:32011509@localhost:3306/accounts'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Mikerocks2319!@localhost:3306/accounts'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 if_Create_Account = False
@@ -58,16 +58,15 @@ def homelight():
 @app.get('/account/new')
 def signup():
     return render_template('signup.html', currentUsername = testing1.getCurrentUsername())
-#Define a route for the user's account page
-@app.get('/account/<string:username>')
-def account(username):
-    current_user = account_methods.get_account(username)
-    testing1.setCurrentUsername(username)
-    temp2 = testing1.getCurrentUsername()
-    posts_list = account_methods.get_posts_by_user(username)
-    return render_template('account.html', account = current_user, forum_list = forum_list, posts_list = posts_list, currentUsername = temp2)
-#Takes input from create account page and refers to the users account page
+
+@app.get('/account/page')
+def account():
+    current_user = account_methods.get_account(testing1.getCurrentUsername())
+    posts_list = account_methods.get_posts_by_user(testing1.getCurrentUsername())
+    return render_template('account.html', account = current_user, forum_list = forum_list, posts_list = posts_list, currentUsername = testing1.getCurrentUsername())
+#Takes input from create account page and refers to the users account page while also maintaining account
 @app.post('/account')
+
 def create_account():
     signupOrLogin = request.form.get('account_action')
     #----------------Signup Sheet if true----------------
@@ -91,9 +90,10 @@ def create_account():
             print("hello")
             created_account = account_methods.create_account(username, password, email, age, website, gender, major, concentration)
             #Changing global currentUsername variable
+            account_methods.account_Authorization(username)
             testing1.setCurrentUsername(username)
-
-            return redirect(f'/account/{created_account.username}')
+            
+            return redirect(f'/account/page')
 
     #----------------Login sheet if false----------------
     if (signupOrLogin == "login"):
@@ -108,7 +108,7 @@ def create_account():
             account_methods.account_Authorization(check_username)
         #Changing global currentUsername variable
             testing1.setCurrentUsername(check_username)     
-            return redirect(f'/account/{login_account.username}')
+            return redirect(f'/account/page')
         else:
             loginError = 'Password incorrect please retry'
             return render_template('login.html', error = loginError, currentUsername = testing1.getCurrentUsername())
@@ -118,6 +118,8 @@ def create_account():
 #Define a route for the Login page
 @app.get('/login')
 def login():
+    account_methods.account_deAuthorization(testing1.getCurrentUsername())
+    testing1.setCurrentUsername('Not Logged in')
     return render_template('login.html', currentUsername = testing1.getCurrentUsername())
 #Define a route for the each forum page
 @app.get('/forum/<int:forum_id>')

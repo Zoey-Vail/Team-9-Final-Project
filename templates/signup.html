@@ -9,7 +9,7 @@
     <body>
         <div class="sign-up-form">
             <!--This is the associated error that will occur if the username already exists-->
-            <h1 class="error-message">{{error2}}</h1>
+            <h1 class="error-message">{{error}}</h1>
 
 
             <h1> Sign Up</h1>
@@ -29,7 +29,9 @@
             <p><span><input type="checkbox"></span>I agree to the terms of services</p>
 
             <!-- When you click the submit button on the signup form it returns the name account_action and the value associated which is True-->
-            <button type="submit", name= "account_action", value= "signup", class="sign-btn">Sign up</button>
+            <center>
+                <button type="submit", name= "account_action", value= "signup", class="sign-btn">Sign up</button>
+            </center>
 
             <!-- Redirect to login page-->
             <p>Do you have an account? <a href="/login">Sign in</a></p>

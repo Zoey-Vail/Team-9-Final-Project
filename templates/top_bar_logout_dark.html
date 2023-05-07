@@ -14,7 +14,13 @@
         <h1 class="top-bar-uncc">UNCC <br>Student Forum</h1>
         <button class = "top-bar-buttons"><a href="/", class="top-bar-links">Home Page</a></button>
         <button class = "top-bar-buttons"><a href="/features", class="top-bar-links">Features</a></button>
+
+        {% if currentUsername == 'Not Logged in' %}
         <button class = "top-bar-buttons"><a href="/account/new", class="top-bar-links">Account</a></button>
+        {% else %}
+        <button class = "top-bar-buttons"><a href="/account/page", class="top-bar-links">Account</a></button>
+
+        {% endif %} 
         <button class = "top-bar-buttons"><a href="/about", class="top-bar-links">About</a></button>
     <!-- This is the dark mode button that will change the page from Dark mode to light mode-->
         <button class = "top-bar-buttons"> <a href="/homepage-lightmode"><img src="{{url_for('static', filename='Images/Vector.png')}}"/></a></button>
@@ -26,20 +32,21 @@
             </button>
     </form>
         
-    
-
         {% if currentUsername == 'Not Logged in' %}
     <!--These are the account creation and sign in buttons at the top-->
-        <button class="top-bar-create-account-button"><a href="/account/new", class="top-bar-create-account-link">Signup</a></button>
-        <button class="top-bar-sign-in"><a href="/login", class = "top-bar-sign-in-link">Log In</a></button>
-
+            <button class="top-bar-create-account-button"><a href="/account/new", class="top-bar-create-account-link">Signup</a></button>
+            <button class="top-bar-sign-in"><a href="/login", class = "top-bar-sign-in-link">Log In</a></button>
         {% else %}
-            
-            <button class="top-bar-create-account-button"><a href="/account/new", class="top-bar-create-account-link">{{currentUsername}}</a></button>
-            <form method="post">
-                <button class="top-bar-sign-in" type="submit", name="account_action"><h6 class = "top-bar-sign-in-link">Sign Out</h6></button>
-            </form>
-            
+            {% set firstLetter = (currentUsername[0:1]).upper()  %}
+            <div>
+                <div class = "top-bar-userSquare">{{firstLetter}}
+                    <div class ="top-bar-username"><button class="top-bar-clean-button"><a href="/account/page" class="top-bar-links">{{currentUsername}}</a></button>
+                        <form method="get", action="/login">
+                            <button class="top-bar-sign-out" type="submit", name="account_action"><b class = "top-bar-sign-in-link">Sign Out</b></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
     </div>
     <div class="container">
        
@@ -48,3 +55,8 @@
        
         {% block body %}{% endblock %}
       </div>
+
+
+
+
+    
