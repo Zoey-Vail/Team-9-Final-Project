@@ -57,7 +57,7 @@ class forums(db.Model):
         self.description = _descript
 
 class discussion(db.Model):
-    discuss_ID = forum_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    discuss_ID = db.Column(db.Integer, primary_key=True, nullable=False)
     creator_username = db.Column(db.String(255), nullable=False)
     parent_forum_ID = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)

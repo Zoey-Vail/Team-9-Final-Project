@@ -1,9 +1,6 @@
 from src.models import db, account, forums, discussion
 import lorem
 
-
-
-
 class accMethods:
     # Creates the database
     def create_data(self):
@@ -97,6 +94,13 @@ class accMethods:
         db.session.commit()
         return new_forum
     
+      # creates a discussion post in the parent forum matching the forum_id
+    def create_post(self, post_ID, creator_username, parent_forum, title, content, tags, majors, classes, companies):
+        new_discussion = discussion(_discussID = post_ID, _creator = creator_username, _parentForID = parent_forum, _title = title, _content = content, _tag = tags, _major = majors, _class = classes, _company = companies)
+        db.session.add(new_discussion)
+        db.session.commit()
+        return new_discussion
+    #Returns the post ID of the last post in the discussion database
     def get_last_discussion_ID(self):
         post_amount = 0
         try:
@@ -109,12 +113,12 @@ class accMethods:
             return last_post.discuss_ID
         except Exception as err:
             return 0
-
+    #returnst the post with the matching post_ID
     def get_post_by_ID(self, post_ID):
         post_to_return = discussion.query.filter_by(discuss_ID = post_ID).first()
         return post_to_return
 
-
+    # returns an array containing all posts with parent_forum_ID matching the forum_ID parameter
     def get_posts_by_forum(self, forum_id):
         post_arr = []
         query = discussion.query.filter_by(parent_forum_ID = forum_id)
@@ -122,6 +126,7 @@ class accMethods:
             post_arr.append(row)
         return post_arr
 
+    # returns an array containing all posts with creator_username matching the user_ID parameter
     def get_posts_by_user(self, user_ID):
         post_arr = []
         query = discussion.query.filter_by(creator_username = user_ID)

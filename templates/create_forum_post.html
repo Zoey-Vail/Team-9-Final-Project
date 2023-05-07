@@ -1,39 +1,37 @@
 <div>
-  {% extends 'top_bar_logout_dark.html' %}
-  </div>
+    {% extends 'top_bar_logout_dark.html' %}
+    </div>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='stylesheets/style.css') }}"> 
+    <!--|||||||||||||||||||||||||||THIS IS THE TASK BAR COMPLETED ABOVE EVERYTHING BELOW IS PART OF EACH PAGE|||||||||||||||||||||||||||-->
+    {% block body %}
+    <html>
+        <div style="height: 100px;"></div>
+            <div class="container-f">
+                <div class="forum-title">
+                    <center>
+                    <h1>Create a Forum Post</h1>
+                    </center>
+                    <hr class="forum-line"></hr>
+                </div>
+                <form action = "/discussion" method="post">
+                    <label for="Forum">Forum:</label><input type="Forum" class="forum-input" placeholder="Forum Name">
+                    <div id="profile-pic">
+                        <label for="Add Image">Add Image (optional):</label>
+                        <input type="file" id="myFile" name="filename">
+                    </div>
+                    <label for="Title">Title:</label><input type="text" class="forum-input" placeholder="Title" name="title">
+                    <label for ="Content">Content:</label><textarea type="text" rows = "20" cols="30" class="forum-input" name = "content"> Enter your message here</textarea>
+                    <label for = "Tags">Tags:</label><input type="text" class="forum-input" name="tags">
+                    <label for = "Majors">Majors:</label><input type="text" class="forum-input" name="majors">
+                    <label for = "Classes">Classes:</label><input type="classes" class="forum-input" name="classes">
+                    <label for = "Companies">Companies:</label><input type="text" class="forum-input" name="companies">
+                    <center>
+                    <button type="submit", name= "creating_post", value= "True", class="sign-btn">Sign up</button>
+                    </center>
 
-  <!--|||||THIS IS THE TASK BAR COMPLETED ABOVE EVERYTHING BELOW IS PART OF EACH PAGE|||||-->
-  {% block body %}
-  <html>
+                </form>
+            </div>
+        <!DOCTYPE html>
+    </html>
 
-
-  <!-- Everything below is subject to change--> 
-  <!DOCTYPE html>
-  <div class="container-fluid">
-      <table class="table table-bordered"style="position: absolute; top: 75px; bottom: 0; left: 0; right: 0; border: 3px;" >
-          <thead style="height: 50px;">
-            <tr >
-              <th style="width: 180px;">Description</th>
-              <th>Recent Posts</th>
-              <th style="width: 275px;">Create Post</th>
-            </tr>
-          </thead>
-          <tbody>
-                <tbody>
-                    <tr style="height: 614px;">
-                      <td>{{ sent_forum.description }}</td>
-                      <td>
-                        <form action="/discussion" method="post">
-                          {% for post in posts_list %}
-                            <button type="submit", name= "creating_post", value= '{{ post.discuss_ID }}', class = "forum-button">{{ post.title }}</button><br>
-                          {% endfor %}
-                      </td>
-                      <td><a href="/forum/create_post">Post to {{ sent_forum.forum_name }}</a></td>
-                    </tr>
-                  </tbody>
-          </tbody>
-        </table>
-      </div>
-
-  </html>
-  {% endblock %}
+    {% endblock %}
