@@ -103,9 +103,12 @@ class accMethods:
             post_amount = int(forums.query.count())
         except Exception as err:
             return post_amount
-        last_post = discussion.query.order_by(discussion.discuss_ID.desc()).first()
-        print('last= '+ str(last_post.discuss_ID))
-        return last_post.discuss_ID
+        try:
+            last_post = discussion.query.order_by(discussion.discuss_ID.desc()).first()
+            print('last= '+ str(last_post.discuss_ID))
+            return last_post.discuss_ID
+        except Exception as err:
+            return 0
 
     def get_post_by_ID(self, post_ID):
         post_to_return = discussion.query.filter_by(discuss_ID = post_ID).first()
