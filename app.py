@@ -13,7 +13,7 @@ forum_list = []
 #Define a route for the homepage
 with app.app_context():
     #------------!!!-uncomment line below and run app.py to clear the database-!!!------------
-    account_methods.clear_data()
+    #account_methods.clear_data()
     #-----------------------------------------------------------------------------------------
     db.create_all()
     forum_list = []
