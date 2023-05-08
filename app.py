@@ -27,8 +27,9 @@ with app.app_context():
     forum_list = account_methods.add_forums_to_array(forum_list)
     posts_list = account_methods.get_posts_by_forum(0)
     example_posts_list = []
-    for i in range(3):
-        example_posts_list.append(account_methods.generate_post(i))
+    if account_methods.get_last_discussion_ID() < 2:
+        for i in range(3):
+            example_posts_list.append(account_methods.generate_post(i))
 
 
 testing1 = tempUsername('Not Logged in')
