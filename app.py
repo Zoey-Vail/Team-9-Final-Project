@@ -86,7 +86,11 @@ def create_account():
         #This if statement below checks if the username already exists within the database
         
         #if(username == account_methods.get_account(username).username):
-        if(account_methods.account_exists(username) == True):
+        if(username == ''):
+            signupError = 'Account username cannot be nothing'
+            return render_template('signup.html', error = signupError, currentUsername = testing1.getCurrentUsername())
+        
+        elif(account_methods.account_exists(username) == True):
             signupError = 'Account Name already exists please retry'
             return render_template('signup.html', error = signupError, currentUsername = testing1.getCurrentUsername())
         elif(account_methods.account_exists(username) != True):
