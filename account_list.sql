@@ -20,6 +20,7 @@ CREATE TABLE discussion (
     discuss_ID INT,
     creator_username VARCHAR(255),
     parent_forum_ID INT,
+    parent_forum_name VARCHAR(255),
 	title VARCHAR(255),
     content VARCHAR(1000),
     tags VARCHAR(255),
@@ -27,6 +28,12 @@ CREATE TABLE discussion (
     classes VARCHAR(255),
     companies VARCHAR(255),
     PRIMARY Key (discuss_ID)
+);
+CREATE TABLE comment (
+    comment_ID INT,
+    reply_content VARCHAR(1000),
+    parent_discussion_ID INT,
+    creator_username VARCHAR(255),
 );
 select username, password, email, age, website, gender, major, concentration, logged_In
 from account;

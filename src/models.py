@@ -2,17 +2,6 @@
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy(session_options={"expire_on_commit": False})
 
-#class utility(db.Model):
-    #current_username = db.Column(db.Integer, primary_key=True, nullable=False)
-    #current_forum_id = db.Column(db.Integer)
-    #ogged_in = db.Column(db.Boolean)
-
-    #def __init__(self, curr_user, curr_for_ID, logged):
-        #self.current_username = curr_user
-        #self.current_forum_id = curr_for_ID
-        #self.logged_in = logged
-
-
 class tempUsername:
     def __init__(self, username:str):
         self._currentUsername = username
@@ -22,6 +11,7 @@ class tempUsername:
 
     def getCurrentUsername(self):
         return self._currentUsername
+    
 
 class account(db.Model):
     username = db.Column(db.String(255), primary_key=True, nullable=False)
@@ -57,9 +47,10 @@ class forums(db.Model):
         self.description = _descript
 
 class discussion(db.Model):
-    discuss_ID = forum_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    discuss_ID = db.Column(db.Integer, primary_key=True, nullable=False)
     creator_username = db.Column(db.String(255), nullable=False)
     parent_forum_ID = db.Column(db.Integer, primary_key=True)
+    parent_forum_name = db.Column(db.String(255), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     content = db.Column(db.String(255), nullable=False)
     tags = db.Column(db.String(255))
@@ -67,13 +58,26 @@ class discussion(db.Model):
     classes = db.Column(db.String(255))
     companies = db.Column(db.String(255))
 
-    def __init__(self, _discussID, _creator, _parentForID, _title, _content, _tag, _major, _class, _company):
+    def __init__(self, _discussID, _creator, _parentForID,_forum_posted_to, _title, _content, _tag, _major, _class, _company):
         self.discuss_ID = _discussID
         self.creator_username = _creator
         self.parent_forum_ID = _parentForID
+        self.parent_forum_name = _forum_posted_to
         self.title = _title
         self.content = _content
         self.tags = _tag
         self.majors = _major
         self.classes = _class
         self.companies = _company
+
+class comment(db.Model):
+    comment_ID = db.Column(db.Integer, primary_key=True, nullable=False)
+    reply_content = db.Column(db.String(255), nullable=False)
+    parent_discussion_ID = db.Column(db.Integer, primary_key=True)
+    creator_username = db.Column(db.String(255), nullable=False)
+
+    def __init__(self, _comment_ID, _reply_content, _parent_discussion_ID, _creator_username):
+        self.comment_ID = _comment_ID
+        self.reply_content = _reply_content
+        self.parent_discussion_ID = _parent_discussion_ID
+        self.creator_username = _creator_username

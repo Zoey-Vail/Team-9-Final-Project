@@ -4,7 +4,27 @@
 
     <!--|||||THIS IS THE TASK BAR COMPLETED ABOVE EVERYTHING BELOW IS PART OF EACH PAGE|||||-->
     {% block body %}
-    <div style="height: 75px;"></div>
-        <h3>{{ show_post.title }}</h3>
-        <p>{{ show_post.content }}</p>
+    <div style="height: 90px;"></div>
+    <div class="card" style="width: 75rem;">
+        <div class="card-body">
+          <h3 class="card-title">{{ show_post.title }}</button></h3>
+          <h4 class="card-subtitle mb-2 text-muted">{{show_post.parent_forum_name}} - {{ show_post.creator_username }}</h4>
+          <h6 class="card-text">{{ show_post.content }}</h6>
+        </div>
+    </div>
+    <div> 
+        <form class="form-group" action = "/comment" method = "post">
+        <input type="reply" class="form-control" name = "reply">
+        <small id="emailHelp" class="form-text text-muted">Post a reply to the discussion</small>
+        <button style="background-color: lightgreen;" type="submit" class="btn btn-primary" name = "creating_post" value = "{{ show_post.discuss_ID }}">Submit</button>
+        </form>
+    </div>
+    {% for reply in reply_list %}
+        <div class="card" style="width: 65rem;">
+            <div class="card-body">
+                <p class="card-text">{{ reply.creator_username }} - {{ reply.reply_content }}</p>
+                </div>
+            </div>
+        <div style="height: 15px;"></div>
+        {% endfor %}
     {% endblock %}

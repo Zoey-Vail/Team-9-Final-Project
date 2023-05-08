@@ -4,7 +4,7 @@ from src.models import db
 from src.models import tempUsername
 
 app = Flask(__name__, template_folder='templates', static_folder='StaticFile')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Mikerocks2319!@localhost:3306/accounts'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:32011509@localhost:3306/accounts'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 if_Create_Account = False
@@ -13,33 +13,35 @@ forum_list = []
 #Define a route for the homepage
 with app.app_context():
     #------------!!!-uncomment line below and run app.py to clear the database-!!!------------
-    #account_methods.clear_data()
+    account_methods.clear_data()
     #-----------------------------------------------------------------------------------------
     db.create_all()
-    print("this worked")
     forum_list = []
     account_methods.create_data()
     if account_methods.get_number_of_forums() == 0:
         for i in range(3):
-            print('app.py=' + str(i))
             account_methods.create_forums(i)
     # Clears the forum_list array so that the same forums aren't added to the array multiple times
     forum_list.clear()
     # Adds all forums in the database to an array and passes it to the account page
     forum_list = account_methods.add_forums_to_array(forum_list)
     posts_list = account_methods.get_posts_by_forum(0)
+    example_posts_list = []
+    for i in range(3):
+        example_posts_list.append(account_methods.generate_post(i))
 
 
 testing1 = tempUsername('Not Logged in')
 
 @app.get('/')
 def home():
+    global example_posts_list
     if(testing1.getCurrentUsername == 'Not Logged in'):
         temp2 = testing1.getCurrentUsername()
-        return render_template('homepage.html',currentUsername = temp2)
+        return render_template('homepage.html', example_posts_list = example_posts_list, currentUsername = temp2)
     else:
         temp2 = testing1.getCurrentUsername()
-        return render_template('homepage.html', currentUsername = temp2)
+        return render_template('homepage.html', example_posts_list = example_posts_list, currentUsername = temp2)
     
 #Define a route for the about page
 @app.get('/about')
@@ -146,31 +148,42 @@ def create_forum_post():
 @app.get('/discussion/<int:discuss_ID>')
 def show_discussion(discuss_ID):
     print("hello")
+    reply_list = account_methods.get_replies_to_post(discuss_ID)
     show_post = account_methods.get_post_by_ID(discuss_ID)
-    return render_template('discussion.html', show_post = show_post, currentUsername = testing1.getCurrentUsername())
+    return render_template('discussion.html', show_post = show_post, reply_list = reply_list, currentUsername = testing1.getCurrentUsername())
 #recieve the data from the create post form and redirect to the the discussion OR if the post already exist redirect to the post
 @app.post('/discussion')
 def post_discussion():
     first_posting = request.form.get('creating_post')
-    print("check" + str(first_posting))
     global current_forum_id, current_user_id, discussion_counter
     if first_posting == "True":
         new_post_ID = int(account_methods.get_last_discussion_ID()) + 1
         creator_username = testing1.getCurrentUsername()
         parent_forum = current_forum_id
+        parent_forum_name = account_methods.get_forum_by_id(current_forum_id).forum_name
         title = request.form.get('title')
         content = request.form.get('content')
         tags = request.form.get('tags')
         majors = request.form.get('majors')
         classes = request.form.get('classes')
         companies = request.form.get('companies')
-        created_post = account_methods.create_post(new_post_ID, creator_username, parent_forum, title, content, tags, majors, classes, companies)
+        created_post = account_methods.create_post(new_post_ID, creator_username, parent_forum, parent_forum_name, title, content, tags, majors, classes, companies)
 
         return redirect(f'/discussion/{created_post.discuss_ID}')
     else:
-        print(first_posting)
         created_post = account_methods.get_post_by_ID(first_posting)
         return redirect(f'/discussion/{created_post.discuss_ID}')
+    
+@app.post('/comment')
+def post_comment():
+    first_posting = request.form.get('creating_post')
+    reply_text = request.form.get('reply')
+    reply_discuss_ID = int(first_posting)
+    reply_ID = int(account_methods.get_last_reply_ID()) + 1
+    reply_user = testing1.getCurrentUsername()
+    new_reply = account_methods.create_reply(reply_ID, reply_text, reply_discuss_ID, reply_user)
+    created_post = account_methods.get_post_by_ID(first_posting)
+    return redirect(f'/discussion/{created_post.discuss_ID}')
 # This is something Michael added for fun :)
 @app.route('/sucks')
 def sucksToSuck():

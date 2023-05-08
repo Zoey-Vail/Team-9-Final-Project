@@ -1,8 +1,5 @@
-from src.models import db, account, forums, discussion
+from src.models import db, account, forums, discussion, comment
 import lorem
-
-
-
 
 class accMethods:
     # Creates the database
@@ -97,31 +94,30 @@ class accMethods:
         db.session.commit()
         return new_forum
     
-
-
-    # creates a discussion post in the parent forum matching the forum_id
+      # creates a discussion post in the parent forum matching the forum_id
     def create_post(self, post_ID, creator_username, parent_forum, parent_forum_name, title, content, tags, majors, classes, companies):
         new_discussion = discussion(_discussID = post_ID, _creator = creator_username, _parentForID = parent_forum, _forum_posted_to = parent_forum_name, _title = title, _content = content, _tag = tags, _major = majors, _class = classes, _company = companies)
         db.session.add(new_discussion)
         db.session.commit()
         return new_discussion
-
-
+    #Returns the post ID of the last post in the discussion database
     def get_last_discussion_ID(self):
         post_amount = 0
         try:
             post_amount = int(forums.query.count())
         except Exception as err:
             return post_amount
-        last_post = discussion.query.order_by(discussion.discuss_ID.desc()).first()
-        print('last= '+ str(last_post.discuss_ID))
-        return last_post.discuss_ID
-
+        try:
+            last_post = discussion.query.order_by(discussion.discuss_ID.desc()).first()
+            return last_post.discuss_ID
+        except Exception as err:
+            return 0
+    #returnst the post with the matching post_ID
     def get_post_by_ID(self, post_ID):
         post_to_return = discussion.query.filter_by(discuss_ID = post_ID).first()
         return post_to_return
 
-
+    # returns an array containing all posts with parent_forum_ID matching the forum_ID parameter
     def get_posts_by_forum(self, forum_id):
         post_arr = []
         query = discussion.query.filter_by(parent_forum_ID = forum_id)
@@ -129,6 +125,7 @@ class accMethods:
             post_arr.append(row)
         return post_arr
 
+    # returns an array containing all posts with creator_username matching the user_ID parameter
     def get_posts_by_user(self, user_ID):
         post_arr = []
         query = discussion.query.filter_by(creator_username = user_ID)
@@ -142,6 +139,46 @@ class accMethods:
         db.session.add(new_account)
         db.session.commit()
         return new_account
+    
+    # returns the ID of the last reply
+    def get_last_reply_ID(self):
+        post_amount = 0
+        try:
+            post_amount = int(comment.query.count())
+        except Exception as err:
+            return post_amount
+        try:
+            last_reply = comment.query.order_by(comment.comment_ID.desc()).first()
+            return last_reply.comment_ID
+        except Exception as err:
+            return 0
+        
+    # creates a reply to a post given the parameters
+    def create_reply(self, comment_ID, content, discussion, creator):
+        new_comment = comment(_comment_ID = comment_ID, _reply_content = content, _parent_discussion_ID = discussion, _creator_username = creator)
+        db.session.add(new_comment)
+        db.session.commit()
+        return new_comment
+    
+    # returns an array all the replies to the post matching the post_ID
+    def get_replies_to_post(self, post_ID):
+        reply_arr = []
+        query = comment.query.filter_by(parent_discussion_ID = post_ID)
+        for row in query:
+            reply_arr.append(row)
+        return reply_arr
+    
+    # Automatically generates a forum post corresponding to fourum_id, adds it to the database, and returns it
+    def generate_post(self, forum_id):
+        post_ID = int(account_methods.get_last_discussion_ID()) + 1
+        title = lorem.sentence()
+        content = (lorem.sentence() + " " + lorem.sentence() + " " + lorem.sentence())
+        creator = "Guest"
+        parent_forum = account_methods.get_forum_by_id(forum_id)
+        auto_post = discussion(post_ID, creator, forum_id, parent_forum.forum_name, title, content, '', '', '', '')
+        db.session.add(auto_post)
+        db.session.commit()
+        return auto_post
 
 
 #object containing the methods used in the app.py
