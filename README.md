@@ -6,7 +6,7 @@
 4. In the terminal run `cd env`, then `cd Scripts`, then `. Activate` 
 5. Navigate back to the `Team-9-Final-Project-main` folder
 6. Run `pip install -r requirements.txt`
-7. In the `app.py` file on line 7, where it says `PASSWORDCHANGEHERE`, replace that with your mySQL password
+7. In the `app.py` file, on line 7, where it says `PASSWORDCHANGEHERE`, replace that with your mySQL password
 8. Open mySQL workbench and navigate to the root connection
 9. In the schemas tab on the left, right click and select `Create Schema`
 10. Name the Schema `accounts`, the click `Apply`, then `Apply`, and then `Finish`
