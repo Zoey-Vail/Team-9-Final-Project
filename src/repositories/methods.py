@@ -179,6 +179,10 @@ class accMethods:
         db.session.add(auto_post)
         db.session.commit()
         return auto_post
+    
+    def search_posts(self, content):
+        found_posts = discussion.query.filter(discussion.content.like('%' + content + '%')).all()
+        return found_posts
 
 
 #object containing the methods used in the app.py

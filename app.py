@@ -1,4 +1,4 @@
-from flask import Flask, abort, redirect, render_template, request, send_from_directory
+from flask import Flask, abort, redirect, render_template, request, send_from_directory, url_for
 from src.repositories.methods import account_methods
 from src.models import db
 from src.models import tempUsername
@@ -30,6 +30,9 @@ with app.app_context():
     if account_methods.get_last_discussion_ID() < 2:
         for i in range(3):
             example_posts_list.append(account_methods.generate_post(i))
+    else:
+        for i in range(3):
+            example_posts_list.append(account_methods.get_post_by_ID(i + 1))
 
 
 testing1 = tempUsername('Not Logged in')
@@ -189,14 +192,40 @@ def post_comment():
     new_reply = account_methods.create_reply(reply_ID, reply_text, reply_discuss_ID, reply_user)
     created_post = account_methods.get_post_by_ID(first_posting)
     return redirect(f'/discussion/{created_post.discuss_ID}')
+
+# Define a route for user info
+@app.get('/user-info')
+def user_info():
+    current_username = testing1.getCurrentUsername()
+    if current_username != 'Not Logged in':
+        # Retrieve the user information from the database based on the current session's username
+        user = account_methods.get_account(current_username)
+        return render_template('User_information.html', user=user, currentUsername=current_username)
+    else:
+        # Redirect to login page if the user is not logged in
+        return redirect(url_for('login'))
+    
 # This is something Michael added for fun :)
 @app.route('/sucks')
 def sucksToSuck():
     return render_template('sucks.html', currentUsername = testing1.getCurrentUsername())
 
+@app.get('/search/<string:search_data>')
+def search(search_data):
+    print(search_data)
+    found_posts = account_methods.search_posts(search_data)
+    return render_template('search.html', found_posts = found_posts, currentUsername = testing1.getCurrentUsername())
+
+@app.post('/start_search')
+def start_search():
+    search_data = str(request.form.get('search_content'))
+    return redirect(f'/search/{search_data}')
+
 @app.route('/Images/<path:path>')
 def send_image(path):
     return send_from_directory('Images', path)
+
+
 
 if __name__ == '__main__':
     app.run()

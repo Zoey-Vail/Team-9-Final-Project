@@ -1,0 +1,21 @@
+<div>
+    {% extends 'top_bar_logout_dark.html' %}
+    </div>
+    
+    {% block body %}
+    <div style="height: 75px;"></div>
+        <h2>You searched for...</h2>
+        <div>
+            <form action="/discussion" method="post">
+            {% for post in found_posts %}
+            <div class="card" style="width: 65rem;">
+                <div class="card-body">
+                  <h5 class="card-title"><button type="submit", name= "creating_post", value= '{{ post.discuss_ID }}'>{{ post.title }}</button></h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{post.parent_forum_name}} - {{ post.creator_username }}</h6>
+                  <p class="card-text">{{ post.content }}</p>
+                </div>
+              </div>
+            {% endfor %}</form>
+        </div>
+    
+    {% endblock %}

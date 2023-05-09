@@ -1,0 +1,36 @@
+{% extends 'top_bar_logout_dark.html' %}
+
+{% block body %}
+<div style="background-color: #f6f7f8; padding: 140px;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: row; align-items: flex-start;">
+    <div style="flex: 0 0 auto; width: 80px;">
+      <div style="display: flex; align-items: center; justify-content: flex-start;">
+      </div>
+    </div>
+    <div style="margin-left: 16px; flex: 1 1 auto;">
+      <h1 style="font-size: 34px; margin-top: 0;">{{ user.username }}</h1>
+      <ul style="font-size: 22px; list-style: none; margin: 0; padding: 0;">
+        <li><strong>Email:</strong> {{ user.email }}</li>
+        <li><strong>Age:</strong> {{ user.age }}</li>
+        <li><strong>Website:</strong> {{ user.website }}</li>
+        <li><strong>Gender:</strong> {{ user.gender }}</li>
+        <li><strong>Major:</strong> {{ user.major }}</li>
+        <li><strong>Concentration:</strong> {{ user.concentration }}</li>
+      </ul>
+    </div>
+    <div style="flex: 0 0 auto; width: 200px;">
+      <ul style="font-size: 22px; list-style: none; margin: 0; align-items: right; padding: 10px;">
+        <li><strong>Account created:</strong> Recently</li>
+        <li><strong>Last login:</strong> Just Now</li>
+        <li><strong>Location:</strong> U.S</li>
+        <li><strong>Interests:</strong> Not Set</li>
+      </ul>
+      <div style="flex: 0 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: middle;">
+        <form method="get" action="/login">
+            <button class="top-bar-sign-out" type="submit" name="account_action"><b class = "top-bar-sign-in-link">Sign Out</b></button>
+        </form>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
