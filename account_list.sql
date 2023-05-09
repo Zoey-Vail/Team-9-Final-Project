@@ -34,6 +34,7 @@ CREATE TABLE comment (
     reply_content VARCHAR(1000),
     parent_discussion_ID INT,
     creator_username VARCHAR(255),
+    PRIMARY Key (comment_ID)
 );
 select username, password, email, age, website, gender, major, concentration, logged_In
 from account;
