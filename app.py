@@ -4,7 +4,7 @@ from src.models import db
 from src.models import tempUsername
 
 app = Flask(__name__, template_folder='templates', static_folder='StaticFile')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:32011509@localhost:3306/accounts'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:PASSWORDCHANGEHERE@localhost:3306/accounts'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 if_Create_Account = False
@@ -52,9 +52,9 @@ def home():
 def about():
     return render_template('about.html',currentUsername = testing1.getCurrentUsername())
 #Define a route for the features page
-@app.get('/features')
-def features():
-    return render_template('features.html',currentUsername = testing1.getCurrentUsername())
+@app.get('/contact')
+def contactUs():
+    return render_template('contact.html',currentUsername = testing1.getCurrentUsername())
 
 #Define a route for the homepage light mode
 @app.route('/homepage-lightmode')

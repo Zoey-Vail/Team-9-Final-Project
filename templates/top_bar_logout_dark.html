@@ -19,7 +19,7 @@
         {% else %}
         <button class = "top-bar-buttons"><a href="/account/page", class="top-bar-links">Home Page</a></button>
         {% endif %}
-        <button class = "top-bar-buttons"><a href="/features", class="top-bar-links">Features</a></button>
+        <button class = "top-bar-buttons"><a href="/contact", class="top-bar-links">Contact Us</a></button>
 
         {% if currentUsername == 'Not Logged in' %}
         <button class = "top-bar-buttons"><a href="/account/new", class="top-bar-links">Account</a></button>
@@ -29,7 +29,7 @@
         {% endif %} 
         <button class = "top-bar-buttons"><a href="/about", class="top-bar-links">About</a></button>
     <!-- This is the dark mode button that will change the page from Dark mode to light mode-->
-        <button class = "top-bar-buttons"> <a href="/homepage-lightmode"><img src="{{url_for('static', filename='Images/Vector.png')}}"/></a></button>
+        <img src="{{url_for('static', filename='Images/Vector.png')}}" class="top-bar-buttons"/>
         
     <!--This is the Search Bar-->
     <form method="post" action="/start_search">

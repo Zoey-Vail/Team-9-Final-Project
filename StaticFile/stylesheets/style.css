@@ -129,7 +129,6 @@
     position: absolute;
     bottom: 5px;
     left: 40px;
-    
     /**
     top: 30px;
     right: 130px;
@@ -269,4 +268,38 @@ tr{
 }
 .other-btn{
     background: #BBFFAA;
+}
+
+/** Style sheet for the about html page! **/
+.about-body{
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+.about-h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.about-p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 20px;
+}
+.about-container {
+    
+    max-width: 1200px;
+    margin: auto;
+    padding: 50px;
+}
+.about-header {
+        font-size: 75px;
+        padding: 20px;
+        text-align: center;
+        padding-top: 100px;
+        font-family: Iceberg;
+        font-style: normal;
 }
